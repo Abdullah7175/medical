@@ -72,24 +72,24 @@ export default function PerformanceChart() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-2">
         <button
           onClick={() => setCurrentDate(prev => subMonths(prev, 1))}
           className="p-2 hover:bg-gray-100 rounded-full"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-4 h-4" />
         </button>
-        <h2 className="text-xl font-semibold">
+        <h2 className="text-xs font-semibold">
           {format(currentDate, 'MMMM yyyy')}
         </h2>
         <button
           onClick={() => setCurrentDate(prev => addMonths(prev, 1))}
           className="p-2 hover:bg-gray-100 rounded-full"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-4 h-4" />
         </button>
       </div>
-      <Line data={data} options={options} />
+  <Line data={data} options={options} />
     </div>
   );
 }

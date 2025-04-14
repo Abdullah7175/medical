@@ -4,18 +4,24 @@ import { useState } from 'react';
 import { List, LayoutGrid } from 'lucide-react';
 
 export default function ArticlesList() {
-  const [view, setView] = useState('list');
+  const [view, setView] = useState('grid');
 
   const articles = [
     {
-      title: 'Latest Medical Research Updates',
+      title: 'Article1',
       url: 'https://example.com/article1',
-      date: '2024-03-20'
     },
     {
-      title: 'New Treatment Guidelines',
+      title: 'Article2',
       url: 'https://example.com/article2',
-      date: '2024-03-19'
+    },
+    {
+      title: 'Article3',
+      url: 'https://example.com/article3',
+    },
+    {
+      title: 'Article4',
+      url: 'https://example.com/article4',
     }
   ];
 
@@ -43,7 +49,7 @@ export default function ArticlesList() {
         </div>
       </div>
 
-      <div className={view === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 gap-4' : 'space-y-4'}>
+      <div className={view === 'grid' ? 'grid grid-cols-1 sm:grid-cols-4 gap-2' : 'space-y-2'}>
         {articles.map((article, index) => (
           <a
             key={index}
@@ -52,7 +58,7 @@ export default function ArticlesList() {
             rel="noopener noreferrer"
             className="block p-4 border rounded-lg hover:bg-gray-50"
           >
-            <h3 className="font-medium text-blue-600">{article.title}</h3>
+            <p className="text-sm text-blue-600 mt-1">{article.title}</p>
             <p className="text-sm text-gray-500 mt-1">{article.date}</p>
           </a>
         ))}

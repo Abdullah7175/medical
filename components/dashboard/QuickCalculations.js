@@ -8,6 +8,7 @@ import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 
 const calculationTypes = [
+  { value: 'Search', label: 'Search' },
   { value: 'bmi', label: 'BMI Calculator' },
   { value: 'calories', label: 'Daily Calorie Needs' },
   { value: 'ideal-weight', label: 'Ideal Weight' },
@@ -23,7 +24,7 @@ const activityLevels = [
 ];
 
 export default function QuickCalculations() {
-  const [calculationType, setCalculationType] = useState('bmi');
+  const [calculationType, setCalculationType] = useState('Search');
   const [inputs, setInputs] = useState({
     weight: '',
     height: '',
@@ -31,7 +32,7 @@ export default function QuickCalculations() {
     gender: 'male',
     activityLevel: 'moderate',
   });
-  
+
   const { result, error, performCalculation } = useCalculations();
 
   const handleInputChange = (e) => {
@@ -46,6 +47,8 @@ export default function QuickCalculations() {
 
   const renderInputFields = () => {
     switch (calculationType) {
+      case 'Search':
+        return null;
       case 'bmi':
         return (
           <>
@@ -152,10 +155,12 @@ export default function QuickCalculations() {
         </div>
       );
     }
-    
+
     if (!result) return null;
-    
+
     switch (calculationType) {
+      case 'Search':
+        return null;
       case 'bmi':
         return (
           <div className="mt-4 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
@@ -201,9 +206,9 @@ export default function QuickCalculations() {
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold mb-4">Quick Calculations</h2>
-      
+
       <Select
-        label="Calculation Type"
+        label="Search Calculation Type"
         options={calculationTypes}
         value={calculationType}
         onChange={(e) => {
@@ -217,15 +222,17 @@ export default function QuickCalculations() {
           });
         }}
       />
-      
+
       <form onSubmit={handleCalculate} className="space-y-4">
         {renderInputFields()}
-        
-        <Button type="submit" className="w-full">
-          Calculate
-        </Button>
+
+        {calculationType !== 'Search' && (
+          <Button type="submit" className="w-full">
+            Calculate
+          </Button>
+        )}
       </form>
-      
+
       {renderResult()}
     </div>
   );
