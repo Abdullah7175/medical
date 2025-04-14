@@ -16,14 +16,18 @@ export default function Dashboard() {
     <>
     
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8">
+
       <div className="mx-auto">
-        <header className="flex justify-between items-center mb-8">
+        <header className="flex flex-col gap-4 justify-center md:flex-row md:justify-between md:items-center mb-8">
+          <div className='flex items-center justify-center md:justify-start gap-2'>
+            <img src="/logo.png" alt="Logo" width={70} height={90} />
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
             Medical Dashboard
           </h1>
+          </div>
           <button
             onClick={() => setShowAddPatient(true)}
-            className="btn-primary flex items-center gap-2"
+            className="btn-primary flex items-center gap-2 self-center md:self-auto"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
@@ -42,7 +46,7 @@ export default function Dashboard() {
       <div>hello</div>
     </div> */}
    
-  <div className="grid grid-cols-2 gap-3">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
   
   {/* First Row */}
   <Card className="fade-in"><PerformanceChart/></Card>

@@ -2,6 +2,31 @@
 
 
 import { useState } from 'react';
+// import OpenAI from 'openai';
+
+// const openai = new OpenAI({
+//   baseURL: 'https://openrouter.ai/api/v1',
+//   apiKey: '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',
+//   defaultHeaders: {
+//     'HTTP-Referer': 'http://localhost:3000', // Optional. Site URL for rankings on openrouter.ai.
+//     'X-Title': 'Medical Dashboard', // Optional. Site title for rankings on openrouter.ai.
+//   },
+// });
+
+// async function main() {
+//   const completion = await openai.chat.completions.create({
+//     model: 'openai/gpt-3.5',
+//     messages: [
+//       {
+//         role: 'user',
+//         content: 'What is the meaning of life?',
+//       },
+//     ],
+//   });
+
+//   console.log(completion.choices[0].message);
+// }
+// main();
 
 export default function ChatGPTSearch() {
   const [query, setQuery] = useState('');
@@ -21,7 +46,7 @@ export default function ChatGPTSearch() {
           'Authorization': 'Bearer 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',
           'Content-Type': 'application/json',
           'HTTP-Referer': 'http://localhost:3000', // Use your domain in production
-          'X-Title': 'MedicalDashboardGPT'
+          'X-Title': 'Medical Dashboard'
         },
         body: JSON.stringify({
           model: 'openai/gpt-3.5-turbo',
