@@ -13,54 +13,59 @@ export default function Dashboard() {
   const [showAddPatient, setShowAddPatient] = useState(false);
 
   return (
-    <>
-      <div className="h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8 overflow-hidden">
-        <div className="h-full flex flex-col">
-          <header className="flex flex-col gap-4 justify-center md:flex-row md:justify-between md:items-center mb-4">
-            <div className="flex items-center justify-center md:justify-start gap-2">
-              <img src="/logo.png" alt="Logo" width={70} height={90} />
-              <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-                Medical Dashboard
-              </h1>
-            </div>
-            <button
-              onClick={() => setShowAddPatient(true)}
-              className="btn-primary flex items-center gap-2 self-center md:self-auto"
-            >
-              Add New Patient
-            </button>
-          </header>
+    <div className="h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-6 overflow-hidden">
+      <div className="h-full flex flex-col gap-4 max-w-7xl mx-auto">
+        <header className="flex flex-col gap-4 justify-center md:flex-row md:justify-between md:items-center">
+          <div className="flex items-center gap-3">
+            <img src="/logo.png" alt="Logo" className="w-10 h-10" />
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
+              Medical Dashboard
+            </h1>
+          </div>
+          <button
+            onClick={() => setShowAddPatient(true)}
+            className="btn-primary flex items-center gap-2 self-center md:self-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+          >
+            Add New Patient
+          </button>
+        </header>
 
-          {/* Grid layout constrained to fill remaining screen */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 flex-1 overflow-hidden">
-            {/* First Row */}
-            <Card className="fade-in overflow-auto max-h-full">
+        {/* Main Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-1 min-h-0">
+          {/* Left Column - Chart */}
+          <div className="lg:col-span-2 flex flex-col gap-4 min-h-0">
+            <Card className="flex-1 min-h-0">
               <PerformanceChart />
             </Card>
-            <Card className="fade-in overflow-auto max-h-full">
+          </div>
+          
+          {/* Right Column - Appointments */}
+          <div className="flex flex-col gap-4 min-h-0">
+            <Card className="flex-1 min-h-0">
               <DailyAppointments />
-            </Card>
-
-            {/* Stacked cards inside one column */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 flex-1 overflow-hidden">
-              <Card className="fade-in overflow-auto max-h-full">
-                <ArticlesList />
-              </Card>
-              <Card className="fade-in overflow-auto max-h-full">
-                <ChatGPTSearch />
-              </Card>
-            </div>
-
-            <Card className="fade-in overflow-auto max-h-full">
-              <QuickCalculations />
             </Card>
           </div>
 
-          {showAddPatient && (
-            <AddPatientModal onClose={() => setShowAddPatient(false)} />
-          )}
+          {/* Bottom Row - Smaller Cards */}
+          <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="h-full">
+              <ArticlesList />
+            </Card>
+            
+            <Card className="h-full">
+              <ChatGPTSearch />
+            </Card>
+            
+            <Card className="h-full">
+              <QuickCalculations />
+            </Card>
+          </div>
         </div>
+
+        {showAddPatient && (
+          <AddPatientModal onClose={() => setShowAddPatient(false)} />
+        )}
       </div>
-    </>
+    </div>
   );
 }
