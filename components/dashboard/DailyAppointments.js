@@ -58,7 +58,7 @@ export default function DailyAppointments() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">Daily Appointments</h2>
         <Button
@@ -98,7 +98,7 @@ export default function DailyAppointments() {
         </Button>
       </div>
 
-      <div className="border rounded-lg overflow-hidden">
+      <div className="border rounded-lg overflow-hidden h-96 overflow-y-scroll">
         {appointments.map(({ hour, formattedTime, appointments }) => (
           <div
             key={hour}
@@ -113,20 +113,20 @@ export default function DailyAppointments() {
               <div className="w-24 font-medium text-gray-500 dark:text-gray-400">
                 {formattedTime}
               </div>
-              <div className="flex-1 flex gap-2">
+              <div className="flex-1 flex gap-4 px-20">
                 {appointments.length > 0 ? (
                   appointments.map(appointment => (
                     <span
                       key={appointment.id}
-                      className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      className={`px-3 py-1 rounded-full text-sm font-medium  ${
                         appointmentTypes[appointment.type].color
                       }`}
                     >
                       {appointment.patientName}
                     </span>
                   ))
-                ) : (
-                  <span className="text-gray-400 dark:text-gray-500">No appointments</span>
+                ) :  (
+                  <span className="text-gray-400 dark:text-gray-500">  No appointments</span>
                 )}
               </div>
               {appointments.length > 0 && (

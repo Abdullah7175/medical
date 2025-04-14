@@ -1,6 +1,11 @@
 'use client';
 
+import { useState } from 'react';
+import { List, LayoutGrid } from 'lucide-react';
+
 export default function ArticlesList() {
+  const [view, setView] = useState('list');
+
   const articles = [
     {
       title: 'Latest Medical Research Updates',
@@ -16,8 +21,29 @@ export default function ArticlesList() {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Articles</h2>
-      <div className="space-y-4">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-semibold">Articles</h2>
+        <div className="flex space-x-2">
+          <button
+            onClick={() => setView('list')}
+            className={`p-2 rounded-md border ${
+              view === 'list' ? 'bg-blue-600 text-white' : 'text-blue-600'
+            }`}
+          >
+            <List className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => setView('grid')}
+            className={`p-2 rounded-md border ${
+              view === 'grid' ? 'bg-blue-600 text-white' : 'text-blue-600'
+            }`}
+          >
+            <LayoutGrid className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+
+      <div className={view === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 gap-4' : 'space-y-4'}>
         {articles.map((article, index) => (
           <a
             key={index}

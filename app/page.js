@@ -13,8 +13,10 @@ export default function Dashboard() {
   const [showAddPatient, setShowAddPatient] = useState(false);
 
   return (
+    <>
+    
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8">
-      <div className="max-w-[2000px] mx-auto">
+      <div className="mx-auto">
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
             Medical Dashboard
@@ -30,37 +32,37 @@ export default function Dashboard() {
           </button>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Performance Dashboard */}
-          <Card className="lg:col-span-2 fade-in">
-            <PerformanceChart />
-          </Card>
+    {/* <div className='grid grid-cols-2 gap-6'>
+      <div className='max-h-1/2'>
+      <PerformanceChart/>
+      </div>
+      <div className='max-h-1/2 overflow-y-scroll'>
+      <DailyAppointments/>
+      </div>
+      <div>hello</div>
+    </div> */}
+   
+  <div className="grid grid-cols-2 gap-3">
+  
+  {/* First Row */}
+  <Card className="fade-in"><PerformanceChart/></Card>
+  <Card className="fade-in"><DailyAppointments/></Card>
 
-          {/* Daily Appointments */}
-          <Card className="fade-in">
-            <DailyAppointments />
-          </Card>
+  {/* Stack inside one column using nested grid */}
+  <div className="grid gap-2">
+    <Card className="fade-in"><ArticlesList/></Card>
+    <Card className="fade-in"><ChatGPTSearch/></Card>
+  </div>
 
-          {/* Quick Calculations */}
-          <Card className="fade-in">
-            <QuickCalculations />
-          </Card>
+  <Card className="fade-in"><QuickCalculations/></Card>
+</div>
 
-          {/* Articles */}
-          <Card className="fade-in">
-            <ArticlesList />
-          </Card>
-
-          {/* ChatGPT Search */}
-          <Card className="lg:col-span-2 fade-in">
-            <ChatGPTSearch />
-          </Card>
-        </div>
 
         {showAddPatient && (
           <AddPatientModal onClose={() => setShowAddPatient(false)} />
         )}
       </div>
     </div>
+    </>
   );
 }
