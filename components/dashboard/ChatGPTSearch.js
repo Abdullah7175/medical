@@ -1,9 +1,42 @@
 'use client';
 
+
+
 import { useState } from 'react';
 
 export default function ChatGPTSearch() {
   const [query, setQuery] = useState('');
+  const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function handleSearch() {
+    if (!query) return;
+
+    setLoading(true);
+    setResponse('');
+
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': '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',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'openai/gpt-3.5-turbo',
+          messages: [{ role: 'user', content: query }],
+        }),
+      });
+
+      const data = await res.json();
+      setResponse(data.choices?.[0]?.message?.content || 'No response.');
+    } catch (err) {
+      setResponse('Error fetching response.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div>
@@ -16,10 +49,18 @@ export default function ChatGPTSearch() {
           placeholder="Ask a medical question..."
           className="flex-1 p-2 border rounded"
         />
-        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-          Search
+        <button
+          onClick={handleSearch}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          {loading ? 'Loading...' : 'Search'}
         </button>
       </div>
+      {response && (
+        <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded">
+          <p className="whitespace-pre-wrap">{response}</p>
+        </div>
+      )}
     </div>
   );
 }
