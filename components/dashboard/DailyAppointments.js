@@ -1,26 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { format, addDays, subDays, isToday, isSameDay } from 'date-fns';
 import { ChevronLeft, ChevronRight, List, Grid2X2 } from 'lucide-react';
 import Button from '@/components/common/Button';
+import * as Tooltip from '@radix-ui/react-tooltip';
 
 const timeSlots = Array.from({ length: 24 }, (_, i) => ({
   hour: i,
-  formattedTime: `${String(i).padStart(2, '0')}:00 - ${String(i + 1).padStart(2, '0')}:00`,
 }));
 
 const appointmentTypes = {
   new: {
-    color: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+    color: 'bg-green-500',
     label: 'New',
   },
   followup: {
-    color: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+    color: 'bg-blue-500',
     label: 'Follow-up',
   },
   emergency: {
-    color: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
+    color: 'bg-red-500',
     label: 'Emergency',
   },
 };
@@ -28,30 +28,38 @@ const appointmentTypes = {
 export default function DailyAppointments() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [expandedHour, setExpandedHour] = useState(null);
-  const [viewMode, setViewMode] = useState('grid'); // 'list' or 'grid'
+  const [viewMode, setViewMode] = useState('grid');
 
-  const appointments = timeSlots.map(slot => {
-    const hasAppointment = Math.random() > 0.6;
-    return {
-      ...slot,
-      appointments: hasAppointment ? [
-        {
-          id: `${slot.hour}-1`,
-          patientName: `Patient ${slot.hour}`,
-          type: ['new', 'followup', 'emergency'][Math.floor(Math.random() * 3)],
-          notes: 'Routine checkup',
-          duration: 30,
-        },
-        ...(Math.random() > 0.7 ? [{
-          id: `${slot.hour}-2`,
-          patientName: `Patient ${slot.hour + 0.5}`,
-          type: ['new', 'followup', 'emergency'][Math.floor(Math.random() * 3)],
-          notes: 'Follow-up visit',
-          duration: 45,
-        }] : [])
-      ] : [],
-    };
-  });
+  const appointments = useMemo(() => {
+    return timeSlots.map(slot => {
+      const hasAppointment = Math.random() > 0.6;
+      return {
+        ...slot,
+        appointments: hasAppointment
+          ? [
+              {
+                id: `${slot.hour}-1`,
+                patientName: `Patient ${slot.hour}`,
+                type: ['new', 'followup', 'emergency'][Math.floor(Math.random() * 3)],
+                notes: 'Routine checkup',
+                duration: 30,
+              },
+              ...(Math.random() > 0.7
+                ? [
+                    {
+                      id: `${slot.hour}-2`,
+                      patientName: `Patient ${slot.hour + 0.5}`,
+                      type: ['new', 'followup', 'emergency'][Math.floor(Math.random() * 3)],
+                      notes: 'Follow-up visit',
+                      duration: 45,
+                    },
+                  ]
+                : []),
+            ]
+          : [],
+      };
+    });
+  }, [currentDate]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -88,9 +96,7 @@ export default function DailyAppointments() {
           <ChevronLeft className="h-4 w-4" />
         </Button>
         <div className="text-center">
-          <p className="text-xs font-semibold">
-            {format(currentDate, 'EEEE, MMMM d, yyyy')}
-          </p>
+          <p className="text-xs font-semibold">{format(currentDate, 'EEEE, MMMM d, yyyy')}</p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {isToday(currentDate) ? 'Today' : isSameDay(currentDate, addDays(new Date(), 1)) ? 'Tomorrow' : ''}
           </p>
@@ -100,9 +106,59 @@ export default function DailyAppointments() {
         </Button>
       </div>
 
-      {viewMode === 'list' ? (
+      {viewMode === 'grid' ? (
+        <>
+          <Tooltip.Provider delayDuration={100}>
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+              {appointments.map(({ hour, appointments }) => (
+                <div
+                  key={hour}
+                  className="border rounded-lg p-2 text-center bg-white dark:bg-gray-800 text-xs"
+                >
+                  <div className="font-semibold text-gray-700 dark:text-gray-300 mb-1">{hour}</div>
+                  <div className="flex justify-center flex-wrap gap-1">
+                    {appointments.length > 0 ? (
+                      appointments.map(appt => (
+                        <Tooltip.Root key={appt.id}>
+                          <Tooltip.Trigger asChild>
+                            <div
+                              className={`h-3 w-3 rounded-full cursor-pointer ${appointmentTypes[appt.type].color}`}
+                            />
+                          </Tooltip.Trigger>
+                          <Tooltip.Portal>
+                            <Tooltip.Content
+                              className="bg-black text-white px-2 py-1 rounded text-xs shadow-md"
+                              side="top"
+                              sideOffset={5}
+                            >
+                              <div>{appt.patientName}</div>
+                              <div className="italic">{appointmentTypes[appt.type].label}</div>
+                              <div className="text-gray-300">{appt.notes}</div>
+                            </Tooltip.Content>
+                          </Tooltip.Portal>
+                        </Tooltip.Root>
+                      ))
+                    ) : (
+                      <div className="text-gray-300 dark:text-gray-600">–</div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Tooltip.Provider>
+
+          <div className="flex gap-4 text-xs text-gray-500 mt-2">
+            {Object.entries(appointmentTypes).map(([key, { color, label }]) => (
+              <div key={key} className="flex items-center gap-1">
+                <div className={`w-3 h-3 rounded-full ${color}`}></div>
+                {label}
+              </div>
+            ))}
+          </div>
+        </>
+      ) : (
         <div className="border rounded-lg overflow-hidden">
-          {appointments.map(({ hour, formattedTime, appointments }) => (
+          {appointments.map(({ hour, appointments }) => (
             <div
               key={hour}
               className={`border-b last:border-b-0 transition-colors ${
@@ -113,7 +169,7 @@ export default function DailyAppointments() {
                 className="flex items-center p-3 cursor-pointer"
                 onClick={() => setExpandedHour(expandedHour === hour ? null : hour)}
               >
-                <div className="w-22 font-small text-xs text-gray-500 dark:text-gray-400">{formattedTime}</div>
+                <div className="w-22 font-small text-xs text-gray-500 dark:text-gray-400">{hour}:00</div>
                 <div className="flex-1 flex gap-4 px-20">
                   {appointments.length > 0 ? (
                     appointments.map(appointment => (
@@ -125,7 +181,7 @@ export default function DailyAppointments() {
                       </span>
                     ))
                   ) : (
-                    <span className="text-xs text-gray-400 dark:text-gray-500">free slots</span>
+                    <span className="text-xs text-gray-400 dark:text-gray-500"> </span>
                   )}
                 </div>
                 {appointments.length > 0 && (
@@ -153,9 +209,7 @@ export default function DailyAppointments() {
                         <div>
                           <h4 className="font-semibold">{appointment.patientName}</h4>
                           <span
-                            className={`inline-block px-2 py-1 text-xs rounded-full mt-1 ${
-                              appointmentTypes[appointment.type].color
-                            }`}
+                            className={`inline-block px-2 py-1 text-xs rounded-full mt-1 ${appointmentTypes[appointment.type].color}`}
                           >
                             {appointmentTypes[appointment.type].label}
                           </span>
@@ -176,31 +230,6 @@ export default function DailyAppointments() {
                     </div>
                   ))}
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {appointments.map(({ hour, formattedTime, appointments }) => (
-            <div
-              key={hour}
-              className="border rounded-lg p-3 bg-white dark:bg-gray-800 shadow-sm"
-            >
-              <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-                {formattedTime}
-              </div>
-              {appointments.length > 0 ? (
-                appointments.map(appt => (
-                  <div
-                    key={appt.id}
-                    className={`mb-2 px-2 py-1 text-sm rounded ${appointmentTypes[appt.type].color}`}
-                  >
-                    {appt.patientName}
-                  </div>
-                ))
-              ) : (
-                <div className="text-sm text-gray-400 dark:text-gray-500">free slots</div>
               )}
             </div>
           ))}
