@@ -53,7 +53,7 @@ export default function Dashboard() {
   <Card className="fade-in"><DailyAppointments/></Card>
 
   {/* Stack inside one column using nested grid */}
-  <div className="grid gap-2">
+  <div className="grid gap-2 pr-0.5">
     <Card className="fade-in"><ArticlesList/></Card>
     <Card className="fade-in"><ChatGPTSearch/></Card>
   </div>
