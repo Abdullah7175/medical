@@ -68,7 +68,7 @@ export default function ChatGPTSearch() {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">ChatGPT Search</h2>
+      <h2 className="text-md font-bold mb-1">ChatGPT Search</h2>
       <div className="flex gap-2">
         <input
           type="text"

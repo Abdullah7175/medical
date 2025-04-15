@@ -47,16 +47,16 @@ export default function Dashboard() {
           </div>
 
           {/* Bottom Row - Smaller Cards */}
-          <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="h-full">
+          <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4 min-h-0">
+            <Card className="min-h-0">
               <ArticlesList />
             </Card>
             
-            <Card className="h-full">
+            <Card className="min-h-0">
               <ChatGPTSearch />
             </Card>
             
-            <Card className="h-full">
+            <Card className="">
               <QuickCalculations />
             </Card>
           </div>

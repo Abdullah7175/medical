@@ -62,9 +62,9 @@ export default function DailyAppointments() {
   }, [currentDate]);
 
   return (
-    <div className="flex flex-col gap-4 h-full">
+    <div className="flex flex-col gap-2">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-white">Daily Appointments</h2>
+        <h2 className="text-md font-bold text-gray-800 dark:text-white">Daily Appointments</h2>
         <div className="flex gap-2">
           <Button
             size="icon"
@@ -124,11 +124,11 @@ export default function DailyAppointments() {
         {viewMode === 'grid' ? (
           <>
             <Tooltip.Provider delayDuration={100}>
-              <div className="grid grid-cols-6 gap-1 h-full overflow-y-auto pb-2 pr-1">
+              <div className="grid grid-cols-5 gap-1 overflow-y-auto pb-2 pr-1">
                 {appointments.map(({ hour, appointments }) => (
                   <div
                     key={hour}
-                    className="border dark:border-gray-700 rounded p-1 text-center bg-white dark:bg-gray-800 text-xs hover:shadow-md transition-shadow"
+                    className=" dark:border-gray-700 rounded-md p-1 h-12 text-center bg-slate-50 shadow-md  hover:bg-gray-100 dark:bg-gray-800 text-xs hover:shadow-md transition-shadow"
                   >
                     <div className="font-semibold text-gray-700 dark:text-gray-300 mb-1">
                       {hour}:00
