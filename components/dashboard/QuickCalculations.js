@@ -1,12 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { CloseButton, Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
 import { useCalculations } from '@/hooks/useCalculations';
 import Select from '@/components/common/Select';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
-import { ChartBarStacked, Circle, CircleX, ExpandIcon } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const calculationTypes = [
   { value: 'Search', label: 'Search' },
@@ -163,7 +162,7 @@ export default function QuickCalculations() {
   const renderResult = () => {
     if (error) {
       return (
-        <div className="mt-3 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg text-sm">
+        <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
           <p className="text-red-600 dark:text-red-400">{error}</p>
         </div>
       );
@@ -176,37 +175,37 @@ export default function QuickCalculations() {
         return null;
       case 'bmi':
         return (
-          <div className="mt-3 p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg text-sm">
+          <div className="space-y-2">
             <h3 className="font-semibold text-indigo-700 dark:text-indigo-300">BMI Result</h3>
-            <p className="text-xl font-bold mt-1">{result?.bmi?.toFixed?.(1) || 'N/A'}</p>
-            <p className="mt-1 text-sm">{result?.category || ''}</p>
+            <p className="text-2xl font-bold">{result?.bmi?.toFixed?.(1) || 'N/A'}</p>
+            <p className="text-sm">{result?.category || ''}</p>
           </div>
         );
       case 'calories':
         return (
-          <div className="mt-3 p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg text-sm">
+          <div className="space-y-2">
             <h3 className="font-semibold text-indigo-700 dark:text-indigo-300">Daily Calorie Needs</h3>
-            <div className="grid grid-cols-3 gap-2 mt-2">
-              <div>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="bg-indigo-50 dark:bg-indigo-900/10 p-2 rounded">
                 <p className="text-xs text-gray-500 dark:text-gray-400">Maintenance</p>
-                <p className="text-lg font-bold">{result?.maintenance?.toFixed?.(0) || 'N/A'} kcal</p>
+                <p className="font-bold">{result?.maintenance?.toFixed?.(0) || 'N/A'} kcal</p>
               </div>
-              <div>
+              <div className="bg-indigo-50 dark:bg-indigo-900/10 p-2 rounded">
                 <p className="text-xs text-gray-500 dark:text-gray-400">Weight Loss</p>
-                <p className="text-lg font-bold">{result?.weightLoss?.toFixed?.(0) || 'N/A'} kcal</p>
+                <p className="font-bold">{result?.weightLoss?.toFixed?.(0) || 'N/A'} kcal</p>
               </div>
-              <div>
+              <div className="bg-indigo-50 dark:bg-indigo-900/10 p-2 rounded">
                 <p className="text-xs text-gray-500 dark:text-gray-400">Weight Gain</p>
-                <p className="text-lg font-bold">{result?.weightGain?.toFixed?.(0) || 'N/A'} kcal</p>
+                <p className="font-bold">{result?.weightGain?.toFixed?.(0) || 'N/A'} kcal</p>
               </div>
             </div>
           </div>
         );
       case 'ideal-weight':
         return (
-          <div className="mt-3 p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg text-sm">
+          <div className="space-y-2">
             <h3 className="font-semibold text-indigo-700 dark:text-indigo-300">Ideal Weight Range</h3>
-            <p className="text-xl font-bold mt-1">
+            <p className="text-2xl font-bold">
               {result?.minWeight?.toFixed?.(1) || 'N/A'} - {result?.maxWeight?.toFixed?.(1) || 'N/A'} kg
             </p>
           </div>
@@ -217,8 +216,8 @@ export default function QuickCalculations() {
   };
 
   return (
-    <div className="space-y-2 p-2">
-      <h2 className="text-lg font-semibold mb-2">Quick Calculations</h2>
+    <div className="space-y-3 relative h-full">
+      <h2 className="text-md font-bold">Quick Calculations</h2>
 
       <Select
         label="Calculation Type"
@@ -247,33 +246,23 @@ export default function QuickCalculations() {
         )}
       </form>
 
-      {/* Result Modal */}
-      <Dialog open={showModal} onClose={setShowModal} className="relative z-10">
-        <DialogBackdrop className="fixed inset-0 bg-gray-500/75" />
-        <div className="fixed z-10 w-2/12 bottom-0 right-96 overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <DialogPanel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl sm:my-8 sm:w-full sm:max-w-md">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <div className="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:size-10">
-                    <CircleX aria-hidden="true" className="size-6 text-red-600" />
-                  </div>
-                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    {renderResult()}
-                  </div>
-              </div>
-              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button
-                  type="button"
-                  onClick={() => setShowModal(false)}
-                  className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white hover:bg-red-500 sm:ml-3 sm:w-auto"
-                >
-                  Close
-                </button>
-              </div>
-            </DialogPanel>
+      {/* In-card Dialog */}
+      {showModal && (
+        <div className="absolute top-30 left-8  bg-white dark:bg-gray-800 rounded-lg p-2 shadow-lg z-10 border border-gray-200 dark:border-gray-700">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="text-md font-bold">Results</h3>
+            <button 
+              onClick={() => setShowModal(false)}
+              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          <div className="max-h-[calc(50%-60px)] overflow-y-auto">
+            {renderResult()}
           </div>
         </div>
-      </Dialog>
+      )}
     </div>
   );
 }

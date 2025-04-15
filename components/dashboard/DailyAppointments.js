@@ -124,7 +124,7 @@ export default function DailyAppointments() {
         {viewMode === 'grid' ? (
           <>
             <Tooltip.Provider delayDuration={100}>
-              <div className="grid grid-cols-5 gap-1 overflow-y-auto pb-2 pr-1">
+              <div className="grid grid-cols-5 gap-1 overflow-y-auto  pb-2 pr-1">
                 {appointments.map(({ hour, appointments }) => (
                   <div
                     key={hour}
