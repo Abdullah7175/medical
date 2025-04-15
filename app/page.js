@@ -31,7 +31,7 @@ export default function Dashboard() {
         </header>
 
         {/* Main Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-1 min-h-0">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-1 min-h-0 overflow-hidden">
           {/* Left Column - Chart */}
           <div className="lg:col-span-2 flex flex-col gap-4 min-h-0">
             <Card className="flex-1 min-h-0">
@@ -41,14 +41,14 @@ export default function Dashboard() {
           
           {/* Right Column - Appointments */}
           <div className="flex flex-col gap-4 min-h-0">
-            <Card className="flex-1 min-h-0">
+            <Card className="flex-1 min-h-0 overflow-auto">
               <DailyAppointments />
             </Card>
           </div>
 
           {/* Bottom Row - Smaller Cards */}
-          <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4 min-h-0">
-            <Card className="min-h-0">
+          <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Card className="min-h-0 ">
               <ArticlesList />
             </Card>
             
@@ -56,7 +56,7 @@ export default function Dashboard() {
               <ChatGPTSearch />
             </Card>
             
-            <Card className="">
+            <Card className="flex-1 min-h-0">
               <QuickCalculations />
             </Card>
           </div>

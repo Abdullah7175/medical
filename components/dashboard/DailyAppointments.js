@@ -128,7 +128,7 @@ export default function DailyAppointments() {
                 {appointments.map(({ hour, appointments }) => (
                   <div
                     key={hour}
-                    className=" dark:border-gray-700 rounded-md p-1 h-12 text-center bg-slate-50 shadow-md  hover:bg-gray-100 dark:bg-gray-800 text-xs hover:shadow-md transition-shadow"
+                    className=" dark:border-gray-700 rounded-md p-1 h-9 text-center bg-slate-50 shadow-md  hover:bg-gray-100 dark:bg-gray-800 text-xs hover:shadow-md transition-shadow"
                   >
                     <div className="font-semibold text-gray-700 dark:text-gray-300 mb-1">
                       {hour}:00
