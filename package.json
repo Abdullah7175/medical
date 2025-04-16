@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/genai": "^0.8.0",
     "@headlessui/react": "^2.2.1",
     "@radix-ui/react-tooltip": "^1.2.0",
     "chart.js": "^4.4.8",
