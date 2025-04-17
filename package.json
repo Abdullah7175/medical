@@ -9,13 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
+
     "@fontsource/cairo": "^5.2.5",
     "@google/genai": "^0.8.0",
     "@google/generative-ai": "^0.24.0",
-=======
-    "@google/genai": "^0.8.0",
->>>>>>> e017f904ff4a23b560f3781a99fec8991106b522
+
     "@headlessui/react": "^2.2.1",
     "@radix-ui/react-tooltip": "^1.2.0",
     "chart.js": "^4.4.8",
