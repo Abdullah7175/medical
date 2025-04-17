@@ -4,7 +4,7 @@ import { useState , useMemo, useRef, useEffect } from 'react';
 import { useCalculations } from '@/hooks/useCalculations';
 import Select from '@/components/common/Select';
 import Input from '@/components/common/Input';
-import { X, Search } from 'lucide-react';
+import { X, Search, Calculator } from 'lucide-react';
 
 const calculationTypes = [
   { value: 'Search', label: 'Search' },
@@ -295,8 +295,10 @@ const filteredCalculations = useMemo(() => {
 
   return (
     <div className="space-y-3 relative h-full">
+      <div className='flex gap-2 items-center'>
+      <Calculator className="text-blue-600" size={20} />
       <h2 className="text-md font-bold">Quick Calculations</h2>
-
+      </div>
       {/* <Select
         label="Calculation Type"
         options={calculationTypes}

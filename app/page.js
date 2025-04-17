@@ -8,6 +8,7 @@ import ChatBot from '@/components/dashboard/ChatBot';
 import DailyAppointments from '@/components/dashboard/DailyAppointments';
 import QuickCalculations from '@/components/dashboard/QuickCalculations';
 import AddPatientModal from '@/components/dashboard/AddPatientModal';
+import FoodDrugInteraction from '@/components/dashboard/FoodDrugInteraction';
 import NutritionRiskScreening from '@/components/dashboard/NutritionRiskScreening';
 import Card from '@/components/common/Card';
 import { gsap } from "gsap";
@@ -92,7 +93,7 @@ export default function Dashboard() {
             </Card>
             
             <Card className="min-h-0">
-              <ChatGPTSearch />
+              <FoodDrugInteraction />
             </Card>
             
             <Card className="flex-1 min-h-0">

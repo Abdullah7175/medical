@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ClipboardList, HeartPulse, Scale, Activity } from 'lucide-react';
+import { ClipboardList, HeartPulse, Scale, Activity, Pill, BriefcaseMedical } from 'lucide-react';
 
 export default function NutritionRiskScreening() {
   const [view, setView] = useState('grid');
@@ -37,6 +37,7 @@ export default function NutritionRiskScreening() {
   return (
     <>
       <div className="flex items-center justify-between mb-2">
+        <BriefcaseMedical className="text-blue-600" size={20} />
         <h2 className="text-sm font-bold text-gray-800">Nutrition Risk Screening</h2>
         <div className="flex space-x-2">
           {/* <button
