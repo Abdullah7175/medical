@@ -8,6 +8,7 @@ import ChatBot from '@/components/dashboard/ChatBot';
 import DailyAppointments from '@/components/dashboard/DailyAppointments';
 import QuickCalculations from '@/components/dashboard/QuickCalculations';
 import AddPatientModal from '@/components/dashboard/AddPatientModal';
+import NutritionRiskScreening from '@/components/dashboard/NutritionRiskScreening';
 import Card from '@/components/common/Card';
 import { gsap } from "gsap";
 import Loader from "@/components/loader";
@@ -87,7 +88,7 @@ export default function Dashboard() {
           {/* Bottom Row - Smaller Cards */}
           <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Card className="min-h-0 ">
-              <ArticlesList />
+              <NutritionRiskScreening />
             </Card>
             
             <Card className="min-h-0">
