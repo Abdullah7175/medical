@@ -1,11 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState , useMemo, useRef, useEffect } from 'react';
 import { useCalculations } from '@/hooks/useCalculations';
 import Select from '@/components/common/Select';
 import Input from '@/components/common/Input';
-import Button from '@/components/common/Button';
-import { X } from 'lucide-react';
+import { X, Search } from 'lucide-react';
 
 const calculationTypes = [
   { value: 'Search', label: 'Search' },
@@ -13,6 +12,17 @@ const calculationTypes = [
   { value: 'calories', label: 'Daily Calorie Needs' },
   { value: 'ideal-weight', label: 'Ideal Weight' },
   { value: 'body-fat', label: 'Body Fat Percentage' },
+  { value: 'bmr', label: 'Basal Metabolic Rate (BMR)' },
+  { value: 'tdee', label: 'Total Daily Energy Expenditure (TDEE)' },
+  { value: 'waist-to-hip', label: 'Waist-to-Hip Ratio' },
+  { value: 'lean-body-mass', label: 'Lean Body Mass' },
+  { value: 'macros', label: 'Macronutrient Split' },
+  { value: 'water-intake', label: 'Daily Water Intake' },
+  { value: 'pregnancy-due-date', label: 'Pregnancy Due Date' },
+  { value: 'child-growth-percentile', label: 'Child Growth Percentile' },
+  { value: 'target-heart-rate', label: 'Target Heart Rate Zone' },
+  { value: 'vo2max', label: 'VO2 Max Estimation' },
+  { value: 'calorie-burn', label: 'Calories Burned by Activity' }
 ];
 
 const activityLevels = [
@@ -24,9 +34,14 @@ const activityLevels = [
   { value: 'extra-active', label: 'Extra active (very hard exercise & physical job)' },
 ];
 
+
+
 export default function QuickCalculations() {
   const [calculationType, setCalculationType] = useState('Search');
   const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const searchResultsRef = useRef(null);
   const [inputs, setInputs] = useState({
     weight: '',
     height: '',
@@ -35,7 +50,38 @@ export default function QuickCalculations() {
     activityLevel: 'Search',
   });
 
+  const useClickOutside = (ref, callback) => {
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          callback();
+        }
+      };
+  
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [ref, callback]);
+  };
+  
+
+  useClickOutside(searchResultsRef, () => {
+    setShowSearchResults(false);
+  });
+
   const { result, error, performCalculation } = useCalculations();
+
+  // Filter calculation types based on search query
+// Filter calculation types based on search query
+const filteredCalculations = useMemo(() => {
+  if (!searchQuery) return calculationTypes;
+  return calculationTypes.filter(calc => 
+    calc.label.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+}, [searchQuery]);
+  
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -47,6 +93,38 @@ export default function QuickCalculations() {
     performCalculation(calculationType, inputs);
     setShowModal(true);
   };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    // Reset to default state
+    setCalculationType('Search');
+    setInputs({
+      weight: '',
+      height: '',
+      age: '',
+      gender: '',
+      activityLevel: 'Search',
+    });
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setShowSearchResults(true);
+  };
+
+  const handleSelectCalculation = (value) => {
+    setCalculationType(value);
+    setInputs({
+      weight: '',
+      height: '',
+      age: '',
+      gender: 'male',
+      activityLevel: 'Search',
+    });
+    setShowSearchResults(false);
+    setSearchQuery('');
+  };
+
 
   const renderInputFields = () => {
     switch (calculationType) {
@@ -177,8 +255,8 @@ export default function QuickCalculations() {
         return (
           <div className="space-y-2">
             <h3 className="font-semibold text-indigo-700 dark:text-indigo-300">BMI Result</h3>
-            <p className="text-2xl font-bold">{result?.bmi?.toFixed?.(1) || 'N/A'}</p>
-            <p className="text-sm">{result?.category || ''}</p>
+            <p className="text-xl font-bold">{result?.bmi?.toFixed?.(1) || 'N/A'}</p>
+            <p className="text-xs">{result?.category || ''}</p>
           </div>
         );
       case 'calories':
@@ -205,7 +283,7 @@ export default function QuickCalculations() {
         return (
           <div className="space-y-2">
             <h3 className="font-semibold text-indigo-700 dark:text-indigo-300">Ideal Weight Range</h3>
-            <p className="text-2xl font-bold">
+            <p className="text-xl font-bold">
               {result?.minWeight?.toFixed?.(1) || 'N/A'} - {result?.maxWeight?.toFixed?.(1) || 'N/A'} kg
             </p>
           </div>
@@ -219,7 +297,7 @@ export default function QuickCalculations() {
     <div className="space-y-3 relative h-full">
       <h2 className="text-md font-bold">Quick Calculations</h2>
 
-      <Select
+      {/* <Select
         label="Calculation Type"
         options={calculationTypes}
         value={calculationType}
@@ -234,31 +312,71 @@ export default function QuickCalculations() {
           });
         }}
         className="text-sm"
-      />
+      /> */}
 
-      <form onSubmit={handleCalculate} className="space-y-3">
+
+            {/* Replace Select with Search Input */}
+            <div className="relative">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Input
+            type="text"
+            placeholder="Search calculation type..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            onFocus={() => setShowSearchResults(true)}
+            className="pl-10 text-sm"
+          />
+        </div>
+        
+        {showSearchResults && (
+          <div  ref={searchResultsRef}  className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-auto">
+            {filteredCalculations.length > 0 ? (
+              filteredCalculations.map((calc) => (
+                <div
+                  key={calc.value}
+                  className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm"
+                  onClick={() => handleSelectCalculation(calc.value)}
+                >
+                  {calc.label}
+                </div>
+              ))
+            ) : (
+              <div className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">
+                No calculations found
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+            {/* Replace Select with Search Input */}
+
+
+
+      <form onSubmit={handleCalculate} className="space-y-3 transition-colors">
         {renderInputFields()}
 
         {calculationType !== 'Search' && (
-          <Button type="submit" className="w-full py-1 text-sm">
+          <button type="submit" className="btn-secondary w-full py-1 text-sm transition-colors">
             Calculate
-          </Button>
+          </button>
         )}
       </form>
 
       {/* In-card Dialog */}
       {showModal && (
-        <div className="absolute top-30 left-8  bg-white dark:bg-gray-800 rounded-lg p-2 shadow-lg z-10 border border-gray-200 dark:border-gray-700">
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-md font-bold">Results</h3>
+        <div className="absolute inset-10  bg-white dark:bg-gray-800 rounded-lg p-2 shadow-lg z-10 border border-gray-200 dark:border-gray-700">
+          <div className="flex justify-between items-start mb-0">
+            <p className="text-xs font-bold">Results</p>
             <button 
-              onClick={() => setShowModal(false)}
+              // onClick={() => setShowModal(false)}
+              onClick={handleCloseModal}
               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
-          <div className="max-h-[calc(50%-60px)] overflow-y-auto">
+          <div className="max-h-[calc(100%-60px)]">
             {renderResult()}
           </div>
         </div>

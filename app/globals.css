@@ -3,17 +3,23 @@
 
 @layer base {
   :root {
-    --primary: 79, 70, 229;
-    --secondary: 99, 102, 241;
-    --accent: 129, 140, 248;
+    --primary: 65, 191, 155; /* #41BF9B */
+    --secondary: 78, 166, 91; /* #4EA65B */
+    --accent: 89, 217, 97; /* #59D961 */
     --background: 249, 250, 251;
     --foreground: 17, 24, 39;
+    --color-508F58: 80, 143, 88; /* #508F58 */
+    --color-75D083: 117, 208, 131; /* #75D083 */
+    --color-1767BC: 23, 103, 188; /* #1767BC */
+    --color-0D6ED4: 13, 110, 212; /* #0D6ED4 */
+    --color-3998FF: 57, 152, 255; /* #3998FF */
+    --color-5E17EB: 94, 23, 235; /* #5E17EB */
   }
 
   .dark {
-    --primary: 99, 102, 241;
-    --secondary: 129, 140, 248;
-    --accent: 165, 180, 252;
+    --primary: 65, 191, 155; /* #41BF9B */
+    --secondary: 117, 208, 131; /* #75D083 */
+    --accent: 89, 217, 97; /* #59D961 */
     --background: 17, 24, 39;
     --foreground: 249, 250, 251;
   }
@@ -25,15 +31,15 @@
   }
   
   .btn-primary {
-    @apply bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-all duration-200 hover:shadow-md;
+    @apply bg-[rgb(var(--primary))] hover:bg-[#4EA65B] text-white px-4 py-2 rounded-lg transition-all duration-200 hover:shadow-md;
   }
   
   .btn-secondary {
-    @apply bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg transition-all duration-200;
+    @apply bg-[#508F58] hover:bg-[#75D083] text-white px-4 py-2 rounded-lg transition-all duration-200;
   }
   
   .input-field {
-    @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all;
+    @apply w-full p-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#59D961] focus:border-[#4EA65B] transition-all;
   }
 }
 
@@ -51,5 +57,6 @@
 body {
   background: rgb(var(--background));
   color: rgb(var(--foreground));
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Cairo', sans-serif;
+  
 }

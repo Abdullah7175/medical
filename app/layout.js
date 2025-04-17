@@ -1,29 +1,20 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cairo } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const cairo = Cairo({
+  subsets: ["latin", "arabic"],
+  variable: "--font-cairo",
 });
 
 export const metadata = {
-  title: 'Medical Dashboard',
+  title: 'Nutricare',
   description: 'A comprehensive medical dashboard for healthcare professionals',
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+    <html lang="en" dir="ltr" className={cairo.variable}>{/* No whitespace here */}
+      <body className="font-sans antialiased">{children}</body>
     </html>
   );
 }

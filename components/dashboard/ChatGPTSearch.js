@@ -2,6 +2,7 @@
 
 
 import { useState } from 'react';
+import Button from '../common/Button';
 // import OpenAI from 'openai';
 
 // const openai = new OpenAI({
@@ -46,7 +47,7 @@ export default function ChatGPTSearch() {
           'Authorization': 'Bearer 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',
           'Content-Type': 'application/json',
           'HTTP-Referer': 'http://localhost:3000', // Use your domain in production
-          'X-Title': 'Medical Dashboard'
+          'X-Title': 'Nutricare'
         },
         body: JSON.stringify({
           model: 'openai/gpt-3.5-turbo',
@@ -79,7 +80,7 @@ export default function ChatGPTSearch() {
         />
         <button
           onClick={handleSearch}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="btn-secondary text-white px-4 py-2 rounded"
         >
           {loading ? 'Loading...' : 'Search'}
         </button>

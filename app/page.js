@@ -1,19 +1,57 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PerformanceChart from '@/components/dashboard/PerformanceChart';
 import ArticlesList from '@/components/dashboard/ArticlesList';
 import ChatGPTSearch from '@/components/dashboard/ChatGPTSearch';
+import ChatBot from '@/components/dashboard/ChatBot';
 import DailyAppointments from '@/components/dashboard/DailyAppointments';
 import QuickCalculations from '@/components/dashboard/QuickCalculations';
 import AddPatientModal from '@/components/dashboard/AddPatientModal';
 import Card from '@/components/common/Card';
+import { gsap } from "gsap";
+import Loader from "@/components/loader";
 
 export default function Dashboard() {
   const [showAddPatient, setShowAddPatient] = useState(false);
+  const [loading, setLoading] = useState(true);
+ 
+  useEffect(() => {
+    const loaderTimeline = gsap.timeline({
+      onComplete: () => setLoading(false),
+    });
+
+    loaderTimeline
+      .fromTo(
+        ".loader",
+        { scaleY: 0, transformOrigin: "50% 100%" },
+        { scaleY: 1, duration: 0.5, ease: "power2.inOut" }
+      )
+      .to(".loader", {
+        scaleY: 0,
+        transformOrigin: "0% -100%",
+        duration: 0.5,
+        ease: "power2.inOut",
+      })
+      .to(
+        ".wrapper",
+        { y: "-100%", ease: "power4.inOut", duration: 1 },
+        "-=0.8"
+      );
+
+  }, []);
 
   return (
-    <div className="h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-6 overflow-hidden">
+    <>
+    {loading && <Loader />} {/* Use the Loader component */}
+    <section
+      className={`relative h-screen transition-opacity duration-700 ${
+        loading ? "opacity-100" : "opacity-100"
+      } bg-[url('https://img.freepik.com/free-psd/interior-luxury-hospital-hall-generative-ai_587448-2177.jpg?t=st=1744714752~exp=1744718352~hmac=05c5b8110e190ee6f79eb3d523fa5c871c7ef8fb093f14bc55cae9280acb0707&w=1380')] bg-cover flex justify-center items-center`}
+    >
+     
+
+    <div className="h-screen p-4 md:p-6 overflow-hidden  w-full rounded-md bg-clip-padding backdrop-filter backdrop-blur-[2px]  border border-gray-100">
       <div className="h-full flex flex-col gap-4 max-w-7xl mx-auto">
         <header className="flex flex-col gap-4 justify-center md:flex-row md:justify-between md:items-center">
           <div className="flex items-center gap-3">
@@ -24,7 +62,7 @@ export default function Dashboard() {
           </div>
           <button
             onClick={() => setShowAddPatient(true)}
-            className="btn-primary flex items-center gap-2 self-center md:self-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+            className="btn-primary flex items-center gap-2 self-center md:self-auto px-4 py-2 text-white rounded-lg transition-colors"
           >
             Add New Patient
           </button>
@@ -67,5 +105,8 @@ export default function Dashboard() {
         )}
       </div>
     </div>
+    <ChatBot />
+    </section>
+    </>
   );
 }

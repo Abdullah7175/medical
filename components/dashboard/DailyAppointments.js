@@ -66,22 +66,24 @@ export default function DailyAppointments() {
       <div className="flex justify-between items-center">
         <h2 className="text-md font-bold text-gray-800 dark:text-white">Daily Appointments</h2>
         <div className="flex gap-2">
-          <Button
-            size="icon"
-            variant={viewMode === 'list' ? 'primary' : 'ghost'}
-            onClick={() => setViewMode('list')}
-            tooltip="List view"
-          >
-            <List className="h-4 w-4" />
-          </Button>
-          <Button
-            size="icon"
-            variant={viewMode === 'grid' ? 'primary' : 'ghost'}
-            onClick={() => setViewMode('grid')}
-            tooltip="Grid view"
-          >
-            <Grid2X2 className="h-4 w-4" />
-          </Button>
+          <button
+                      className={`p-2 rounded-xl`}
+                      size="icon"
+                      variant={viewMode === 'list' ? 'primary' : 'ghost'}
+                      onClick={() => setViewMode('list')}
+                      tooltip="List view"
+                    >
+                      <List className="h-4 w-4" />
+                    </button>
+                    <button
+                      className={`btn-primary p-2 rounded-xl`}
+                      size="icon"
+                      variant={viewMode === 'grid' ? 'primary' : 'ghost'}
+                      onClick={() => setViewMode('grid')}
+                      tooltip="Grid view"
+                    >
+                      <Grid2X2 className="h-4 w-4" />
+                    </button>
           <Button
             size="sm"
             variant={isToday(currentDate) ? 'primary' : 'secondary'}
