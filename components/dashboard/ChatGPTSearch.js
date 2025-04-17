@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 'use client';
 
 
 import { useState } from 'react';
 import Button from '../common/Button';
+=======
+"use client";
+import { GoogleGenAI } from "@google/genai";
+import { useState } from "react";
+>>>>>>> e017f904ff4a23b560f3781a99fec8991106b522
 // import OpenAI from 'openai';
 
 // const openai = new OpenAI({
@@ -30,16 +36,16 @@ import Button from '../common/Button';
 // main();
 
 export default function ChatGPTSearch() {
-  const [query, setQuery] = useState('');
-  const [response, setResponse] = useState('');
+  const [query, setQuery] = useState("");
+  const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleSearch() {
-    if (!query) return;
 
-    setLoading(true);
-    setResponse('');
+  async function handleSearch(input) {
+    
+    const ai = new GoogleGenAI({ apiKey: "AIzaSyBZVx613qeoOD8vSlu69tIOKV9_CNTdnEM" });
 
+<<<<<<< HEAD
     try {
       const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
@@ -55,17 +61,19 @@ export default function ChatGPTSearch() {
             { role: 'user', content: query }
           ],
         }),
+=======
+    async function main() {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: "who are you?",
+>>>>>>> e017f904ff4a23b560f3781a99fec8991106b522
       });
-
-      const data = await res.json();
-      setResponse(data.choices?.[0]?.message?.content || 'No response.');
-    } catch (err) {
-      console.error(err);
-      setResponse('Error fetching response.');
-    } finally {
-      setLoading(false);
+      console.log(response.text);
     }
+
+    main();
   }
+  handleSearch();
 
   return (
     <div>
@@ -82,7 +90,7 @@ export default function ChatGPTSearch() {
           onClick={handleSearch}
           className="btn-secondary text-white px-4 py-2 rounded"
         >
-          {loading ? 'Loading...' : 'Search'}
+          {loading ? "Loading..." : "Search"}
         </button>
       </div>
       {response && (
