@@ -19,10 +19,10 @@ const appointmentTypes = {
     color: 'bg-blue-500',
     label: 'Follow-up',
   },
-  emergency: {
-    color: 'bg-red-500',
-    label: 'Emergency',
-  },
+  // emergency: {
+  //   color: 'bg-red-500',
+  //   label: 'Emergency',
+  // },
 };
 
 export default function DailyAppointments() {
@@ -40,7 +40,7 @@ export default function DailyAppointments() {
               {
                 id: `${slot.hour}-1`,
                 patientName: `Patient ${slot.hour}`,
-                type: ['new', 'followup', 'emergency'][Math.floor(Math.random() * 3)],
+                type: ['new', 'followup'][Math.floor(Math.random() * 2)],
                 notes: 'Routine checkup',
                 duration: 30,
               },
@@ -49,7 +49,7 @@ export default function DailyAppointments() {
                     {
                       id: `${slot.hour}-2`,
                       patientName: `Patient ${slot.hour + 0.5}`,
-                      type: ['new', 'followup', 'emergency'][Math.floor(Math.random() * 3)],
+                      type: ['new', 'followup'][Math.floor(Math.random() * 2)],
                       notes: 'Follow-up visit',
                       duration: 45,
                     },
