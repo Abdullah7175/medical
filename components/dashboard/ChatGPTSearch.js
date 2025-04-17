@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-'use client';
-
-
-import { useState } from 'react';
-import Button from '../common/Button';
-=======
 "use client";
 import { GoogleGenAI } from "@google/genai";
 import { useState } from "react";
->>>>>>> e017f904ff4a23b560f3781a99fec8991106b522
 // import OpenAI from 'openai';
 
 // const openai = new OpenAI({
@@ -45,28 +37,10 @@ export default function ChatGPTSearch() {
     
     const ai = new GoogleGenAI({ apiKey: "AIzaSyBZVx613qeoOD8vSlu69tIOKV9_CNTdnEM" });
 
-<<<<<<< HEAD
-    try {
-      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer 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',
-          'Content-Type': 'application/json',
-          'HTTP-Referer': 'http://localhost:3000', // Use your domain in production
-          'X-Title': 'Nutricare'
-        },
-        body: JSON.stringify({
-          model: 'openai/gpt-3.5-turbo',
-          messages: [
-            { role: 'user', content: query }
-          ],
-        }),
-=======
     async function main() {
       const response = await ai.models.generateContent({
         model: "gemini-2.0-flash",
         contents: "who are you?",
->>>>>>> e017f904ff4a23b560f3781a99fec8991106b522
       });
       console.log(response.text);
     }
