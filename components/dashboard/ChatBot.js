@@ -92,34 +92,37 @@ export default function ChatBot({ apiKey }) {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      {/* Chatbot Icon Button */}
+    <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
+      {/* Floating Bot Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-lg transition-all hover:bg-indigo-700 ${isOpen ? 'hidden' : ''}`}
+        className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[rgb(var(--primary))] text-white flex items-center justify-center shadow-md hover:shadow-lg hover:bg-[rgb(var(--accent))] transition-all ${isOpen ? 'hidden' : ''}`}
       >
         <Bot size={24} />
       </button>
-
-      {/* Chatbot Window */}
+  
+      {/* Chat Window */}
       {isOpen && (
-        <div  ref={searchResultsRef} className="w-80 h-[500px] bg-white dark:bg-gray-800 rounded-lg shadow-xl flex flex-col border border-gray-200 dark:border-gray-700">
+        <div
+          ref={searchResultsRef}
+          className="w-[90vw] max-w-sm h-[75vh] sm:w-80 sm:h-[500px] flex flex-col rounded-xl shadow-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+        >
           {/* Header */}
-          <div className="bg-indigo-600 text-white p-3 rounded-t-lg flex justify-between items-center">
+          <div className="bg-[rgb(var(--primary))] text-white p-3 rounded-t-xl flex justify-between items-center">
             <div className="flex items-center gap-2">
               <Bot size={20} />
-              <h3 className="font-medium">Medical Assistant</h3>
+              <h3 className="font-semibold">Medical Assistant</h3>
             </div>
-            <button 
+            <button
               onClick={() => setIsOpen(false)}
-              className="text-white hover:text-gray-200"
+              className="hover:text-gray-200"
             >
               <X size={18} />
             </button>
           </div>
-
-          {/* Messages Container */}
-          <div className="flex-1 p-3 overflow-y-auto">
+  
+          {/* Messages */}
+          <div className="flex-1 p-3 overflow-y-auto text-sm">
             {messages.length === 0 ? (
               <div className="h-full flex items-center justify-center text-gray-500 dark:text-gray-400 text-center p-4">
                 <p>Hello! I'm your medical assistant. How can I help you today?</p>
@@ -129,12 +132,12 @@ export default function ChatBot({ apiKey }) {
                 {messages.map((message, index) => (
                   <div
                     key={index}
-                    className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                    className={`flex ${message.sender === 'user' || message.sender === 'patient' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[80%] rounded-lg px-3 py-2 ${
-                        message.sender === 'user'
-                          ? 'bg-indigo-100 dark:bg-indigo-900 text-gray-800 dark:text-gray-200'
+                      className={`max-w-[80%] px-3 py-2 rounded-lg text-sm ${
+                        message.sender === 'user' || message.sender === 'patient'
+                          ? 'bg-[rgb(var(--primary))]/20 text-gray-900 dark:text-white'
                           : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
                       }`}
                     >
@@ -147,8 +150,8 @@ export default function ChatBot({ apiKey }) {
                     <div className="bg-gray-100 dark:bg-gray-700 rounded-lg px-3 py-2 text-gray-800 dark:text-gray-200">
                       <div className="flex space-x-2">
                         <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
-                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce delay-100"></div>
+                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce delay-200"></div>
                       </div>
                     </div>
                   </div>
@@ -157,8 +160,8 @@ export default function ChatBot({ apiKey }) {
               </div>
             )}
           </div>
-
-          {/* Input Form */}
+  
+          {/* Input */}
           <form onSubmit={handleSendMessage} className="p-3 border-t border-gray-200 dark:border-gray-700">
             <div className="flex gap-2">
               <input
@@ -166,12 +169,12 @@ export default function ChatBot({ apiKey }) {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Type your message..."
-                className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent))]"
                 disabled={isLoading}
               />
               <button
                 type="submit"
-                className="w-10 h-10 rounded-lg bg-indigo-600 text-white flex items-center justify-center hover:bg-indigo-700 disabled:opacity-50"
+                className="w-10 h-10 rounded-lg bg-[rgb(var(--primary))] text-white flex items-center justify-center hover:bg-[rgb(var(--accent))] disabled:opacity-50"
                 disabled={!inputValue.trim() || isLoading}
               >
                 <Send size={18} />
@@ -182,5 +185,6 @@ export default function ChatBot({ apiKey }) {
       )}
     </div>
   );
+  
 }
 
