@@ -61,7 +61,7 @@ export default function NutritionRiskScreening() {
           <a
             key={index}
             href={tool.url}
-            className={`block p-4 rounded-xl border transition-all hover:shadow-md ${
+            className={`block p-2 rounded-xl border transition-all hover:shadow-md ${
               view === 'grid' ? 'text-center' : 'flex items-start gap-4'
             }`}
           >
