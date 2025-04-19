@@ -38,7 +38,7 @@ export default function NutritionRiskScreening() {
     <>
       <div className="flex items-center justify-between mb-2">
         <BriefcaseMedical className="text-blue-600" size={20} />
-        <h2 className="text-sm font-bold text-gray-800">Nutrition Risk Screening</h2>
+        <h2 className="text-sm font-bold text-gray-800 dark:text-white">Nutrition Risk Screening</h2>
         <div className="flex space-x-2">
           {/* <button
             className={`p-2 rounded-lg ${view === 'list' ? 'bg-blue-100 text-blue-600' : 'text-gray-500'}`}
@@ -70,8 +70,8 @@ export default function NutritionRiskScreening() {
               {tool.icon}
             </div>
             <div>
-              <h3 className="font-sm text-gray-800">{tool.title}</h3>
-              <p className="text-xs text-gray-600 mt-1">{tool.description}</p>
+              <h3 className="font-sm text-gray-800 dark:text-white">{tool.title}</h3>
+              <p className="text-xs text-gray-600 dark:text-white mt-1">{tool.description}</p>
               {view === 'list' && (
                 <span className="inline-block mt-2 text-sm text-blue-600 hover:underline">
                   Start screening →

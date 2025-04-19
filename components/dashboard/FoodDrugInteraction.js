@@ -42,7 +42,7 @@ export default function FoodDrugInteraction() {
 <>
       <div className="flex items-center gap-2 mb-4">
         <Pill className="text-blue-600" size={20} />
-        <h2 className="text-sm font-bold text-gray-800">Food & Drug Interactions</h2>
+        <h2 className="text-sm font-bold text-gray-800 dark:text-white">Food & Drug Interactions</h2>
       </div>
 
       <form onSubmit={checkInteractions} className="space-y-4 mb-6">

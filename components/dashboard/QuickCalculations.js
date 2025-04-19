@@ -297,7 +297,7 @@ const filteredCalculations = useMemo(() => {
     <div className="space-y-3 relative h-full">
       <div className='flex gap-2 items-center'>
       <Calculator className="text-blue-600" size={20} />
-      <h2 className="text-md font-bold">Quick Calculations</h2>
+      <h2 className="text-md font-bold dark:text-white">Quick Calculations</h2>
       </div>
       {/* <Select
         label="Calculation Type"
@@ -320,19 +320,19 @@ const filteredCalculations = useMemo(() => {
             {/* Replace Select with Search Input */}
             <div className="relative">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-white" />
           <Input
             type="text"
             placeholder="Search calculation type..."
             value={searchQuery}
             onChange={handleSearchChange}
             onFocus={() => setShowSearchResults(true)}
-            className="pl-10 text-sm"
+            className="pl-10 text-sm dark:text-white"
           />
         </div>
         
         {showSearchResults && (
-          <div  ref={searchResultsRef}  className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-auto">
+          <div  ref={searchResultsRef}  className="absolute z-10 mt-1 w-full dark:text-white bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-auto">
             {filteredCalculations.length > 0 ? (
               filteredCalculations.map((calc) => (
                 <div

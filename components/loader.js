@@ -7,7 +7,7 @@ const Loader = () => {
       <img
         src="/NutriCare Inverted Color.png"
         alt="Logo"
-        className="w-40 h-40 lg:w-[30%] lg:h-[40vh] animate-pulse"
+        className="w-44 h-40 lg:w-[30%] lg:h-[40vh] animate-pulse"
       />
     </div>
   );
