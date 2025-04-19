@@ -162,8 +162,9 @@ export default function PerformanceChart() {
           <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-300" />
         </button>
       </div>
-      <div className="flex-1 min-h-0">
+      <div className="box-border block h-[208px] w-[332]">
         <Line 
+          className=''
           key={chartKey}
           ref={chartRef}
           data={data} 

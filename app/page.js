@@ -47,16 +47,16 @@ export default function Dashboard() {
     <>
     {loading && <Loader />} {/* Use the Loader component */}
     <section
-      className={`relative h-screen transition-opacity duration-700 ${
+      className={`relative lg:h-screen transition-opacity duration-700 ${
         loading ? "opacity-100" : "opacity-100"
       } bg-[url('https://img.freepik.com/free-psd/interior-luxury-hospital-hall-generative-ai_587448-2177.jpg?t=st=1744714752~exp=1744718352~hmac=05c5b8110e190ee6f79eb3d523fa5c871c7ef8fb093f14bc55cae9280acb0707&w=1380')] bg-cover flex justify-center items-center`}
     >
      
 
-    <div className="h-screen p-4 md:p-6 overflow-hidden  w-full rounded-md bg-clip-padding backdrop-filter backdrop-blur-[2px]  border border-gray-100">
+    <div className="lg:h-screen p-4 md:p-6 overflow-hidden  w-full rounded-md bg-clip-padding backdrop-filter backdrop-blur-[2px]  border border-gray-100">
       <div className="h-full flex flex-col gap-4 max-w-7xl mx-auto">
         <header className="flex flex-col gap-4 justify-center md:flex-row md:justify-between md:items-center">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center gap-3">
             <img src="/logo.png" alt="Logo" className="w-10 h-10" />
             <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
               Medical Dashboard

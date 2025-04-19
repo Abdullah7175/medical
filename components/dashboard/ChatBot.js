@@ -92,7 +92,7 @@ export default function ChatBot({ apiKey }) {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-4 right-4 z-1 sm:bottom-6 sm:right-6">
       {/* Floating Bot Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
