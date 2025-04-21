@@ -122,7 +122,7 @@ export default function AddPatientModal({ onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/20 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+    <div className="fixed md:inset-0 bg-black/20 backdrop-blur-xs flex items-center justify-center p-4 z-10">
       <div 
         className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-scale-in"
         onClick={(e) => e.stopPropagation()}
@@ -228,7 +228,8 @@ export default function AddPatientModal({ onClose }) {
             <Button className="text-nowrap" type="button" variant="secondary" >
                 Type of Feeding
               </Button>
-              <div className='flex gap-4'>
+              <div className='grid grid-cols-2 gap-4'>
+              <div>
               <label>Regular </label>
               <Input
                 type="checkbox"
@@ -236,6 +237,8 @@ export default function AddPatientModal({ onClose }) {
                 onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
                 required
               />
+              </div>
+              <div>
               <label className="text-nowrap">Enteral peripheral </label>
               <Input
                 type="checkbox"
@@ -243,6 +246,8 @@ export default function AddPatientModal({ onClose }) {
                 onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
                 required
               />
+              </div>
+              <div>
               <label>TPN </label>
               <Input
                 type="checkbox"
@@ -250,6 +255,7 @@ export default function AddPatientModal({ onClose }) {
                 onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
                 required
               />
+              </div>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
