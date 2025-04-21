@@ -84,12 +84,12 @@ export default function AddPatientModal({ onClose }) {
     dateOfBirth: '',
     wegiht: '',
     hieght: '',
-    phac:'',
+    phac: '',
     stressFactor: '',
     specialCase: '',
     healthStatus: '',
     ascitesEdema: '',
-    lab:'',
+    lab: '',
     note: '',
   });
 
@@ -122,8 +122,8 @@ export default function AddPatientModal({ onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed md:inset-0 bg-black/20 backdrop-blur-xs flex items-center justify-center p-4 z-10">
-      <div 
+    <div className="fixed top-0 left-0 right-0 md:inset-0 bg-black/20 backdrop-blur-xs flex items-center justify-center p-4 z-10">
+      <div
         className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
@@ -222,68 +222,62 @@ export default function AddPatientModal({ onClose }) {
                 onChange={(e) => setFormData({ ...formData, healthStatus: e.target.value })}
               />
 
-              
+
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
-            <Button className="text-nowrap" type="button" variant="secondary" >
+              <Button className="text-nowrap" type="button" variant="secondary" >
                 Type of Feeding
               </Button>
-              <div className='grid grid-cols-2 gap-4'>
-              <div>
-              <label>Regular </label>
-              <Input
-                type="checkbox"
-                value={formData.dateOfBirth}
-                onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                required
-              />
-              </div>
-              <div>
-              <label className="text-nowrap">Enteral peripheral </label>
-              <Input
-                type="checkbox"
-                value={formData.dateOfBirth}
-                onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                required
-              />
-              </div>
-              <div>
-              <label>TPN </label>
-              <Input
-                type="checkbox"
-                value={formData.dateOfBirth}
-                onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                required
-              />
-              </div>
+              <div className='flex gap-4 flex-col md:flex-row text-center md:text-start'>
+                <label>Regular </label>
+                <Input
+                  type="checkbox"
+                  value={formData.dateOfBirth}
+                  onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                  required
+                />
+                <label className="text-nowrap">Enteral peripheral </label>
+                <Input
+                  type="checkbox"
+                  value={formData.dateOfBirth}
+                  onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                  required
+                />
+                <label>TPN </label>
+                <Input
+                  type="checkbox"
+                  value={formData.dateOfBirth}
+                  onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                  required
+                />
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
-            <Button className="text-nowrap" type="button" variant="secondary" >
+              <Button className="text-nowrap" type="button" variant="secondary" >
                 Growth Chart
               </Button>
-              <div className='flex gap-4'>
-              <label>Normal </label>
-              <Input
-                type="checkbox"
-                value={formData.dateOfBirth}
-                onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                required
-              />
-              <label className="text-nowrap">Down Syndrome </label>
-              <Input
-                type="checkbox"
-                value={formData.dateOfBirth}
-                onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                required
-              />
-              <label className="text-nowrap">Cerebral palsy </label>
-              <Input
-                type="checkbox"
-                value={formData.dateOfBirth}
-                onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                required
-              />
+              <div className='flex gap-4 flex-col md:flex-row text-center md:text-start'>
+                <label>Normal </label>
+                <Input
+                  type="checkbox"
+                  value={formData.dateOfBirth}
+                  onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                  required
+                />
+                <label className="text-nowrap">Down Syndrome </label>
+                <Input
+                  type="checkbox"
+                  value={formData.dateOfBirth}
+                  onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                  required
+                />
+                <label className="text-nowrap">Cerebral palsy </label>
+                <Input
+                  type="checkbox"
+                  value={formData.dateOfBirth}
+                  onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
+                  required
+                />
               </div>
             </div>
 
@@ -294,7 +288,7 @@ export default function AddPatientModal({ onClose }) {
             </div> */}
 
             <div className="grid grid-cols-1 md:grid-cols-1 gap-6 items-center">
-            <Select
+              <Select
                 label="Lab Results"
                 options={[
                   { value: '', label: 'Lab Results' },
@@ -305,14 +299,14 @@ export default function AddPatientModal({ onClose }) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-            <Button className="flex items-center gap-2  text-nowrap" type="button" variant="secondary" onClick={onClose}>
-               <Plus color='red'/>
-               Add New Formula
+              <Button className="flex items-center gap-2  text-nowrap" type="button" variant="secondary" onClick={onClose}>
+                <Plus color='red' />
+                Add New Formula
               </Button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-1 gap-6 items-center">
-            <Input
+              <Input
                 label="Note"
                 type="text"
                 value={formData.note}
