@@ -298,10 +298,10 @@ export default function AddPatientModal({ onClose }) {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
               <Button className="flex items-center gap-2  text-nowrap" type="button" variant="secondary" onClick={onClose}>
                 <Plus color='red' />
-                Add New Formula
+                Add New Formula */}
             {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             <Button className="flex items-center gap-2  text-nowrap" type="button" variant="secondary" onClick={onClose}>
                <Plus color='red'/>
