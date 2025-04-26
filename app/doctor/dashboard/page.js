@@ -14,7 +14,7 @@ import DailyAppointments from '@/components/dashboard/DailyAppointments';
 import QuickCalculations from '@/components/dashboard/QuickCalculations';
 import FoodDrugInteraction from '@/components/dashboard/FoodDrugInteraction';
 import NutritionRiskScreening from '@/components/dashboard/NutritionRiskScreening';
-import PerformanceChart from '@/components/dashboard/PerformanceChart';
+import PerformanceChart from '@/components/ui/chart';
 
 export default function DoctorDashboard() {
   const [patients] = useState([
