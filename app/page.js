@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
 import PerformanceChart from '@/components/dashboard/PerformanceChart';
 import ArticlesList from '@/components/dashboard/ArticlesList';
 import ChatGPTSearch from '@/components/dashboard/ChatGPTSearch';
@@ -13,10 +14,12 @@ import NutritionRiskScreening from '@/components/dashboard/NutritionRiskScreenin
 import Card from '@/components/common/Card';
 import { gsap } from "gsap";
 import Loader from "@/components/loader";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
   const [showAddPatient, setShowAddPatient] = useState(false);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
  
   useEffect(() => {
     const loaderTimeline = gsap.timeline({
@@ -62,12 +65,32 @@ export default function Dashboard() {
               Medical Dashboard
             </h1>
           </div>
-          <button
+          {/* <button
             onClick={() => setShowAddPatient(true)}
             className="btn-primary flex items-center gap-2 self-center md:self-auto px-4 py-2 text-white rounded-lg transition-colors"
           >
             Add New Patient
-          </button>
+          </button> */}
+            {/* <Button onClick={() => router.push('/login')} className="btn-primary flex items-center gap-2 self-center md:self-auto px-4 py-2 text-white rounded-lg transition-colors">
+              Login
+            </Button>
+            <Button onClick={() => router.push('/login')} className="btn-primary flex items-center gap-2 self-center md:self-auto px-4 py-2 text-white rounded-lg transition-colors">
+              signup
+            </Button> */}
+            <div className="flex gap-4">
+              <Button
+                onClick={() => router.push('/login')}
+                className="btn-primary hover:bg-blue-950 text-amber-50 px-6 py-2 rounded-lg  transition-colors"
+              >
+                Login
+              </Button>
+              <Button
+                onClick={() => router.push('/signup')}
+                className="btn-primary hover:bg-blue-950 text-amber-50 px-6 py-2 rounded-lg transition-colors"
+              >
+                Signup
+              </Button>
+            </div>
         </header>
 
         {/* Main Grid Layout */}
